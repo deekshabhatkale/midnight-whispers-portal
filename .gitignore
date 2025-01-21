@@ -8,7 +8,7 @@ backend/node_modules/
 frontend/dist/
 
 # Ignore .env files (if any)
-*.env
+backend/.env
 
 # Ignore system files
 .DS_Store
