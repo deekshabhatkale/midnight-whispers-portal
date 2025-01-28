@@ -5,7 +5,7 @@ const Story = require('../models/story');
 // Get all stories, sorted by most recent.
 router.get('/', async (req, res) => {
     try {
-        const stories = await Story.find().sort({ createdAt: -1 }).populate('author','name profilePicture _id');
+        const stories = await Story.find().sort({ createdAt: -1 });
         res.json(stories);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 // Get a specific story by ID
 router.get('/:id', async (req, res) => {
     try {
-        const story = await Story.findById(req.params.id).populate('author','name profilePicture _id');
+        const story = await Story.findById(req.params.id);
         if (!story) {
             return res.status(404).json({ message: 'Story not found' });
         }
@@ -33,7 +33,8 @@ router.post('/api/stories', async (req, res) => {
         content: req.body.content,
         tags: req.body.tags,
     });
-
+    console.log(story);
+    
     try {
         const newStory = await story.save();
         res.status(201).json(newStory);

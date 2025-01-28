@@ -29,7 +29,7 @@
     import {ref, onMounted} from 'vue';
     // import {fetchStories, useAuth} from '../services/api';
     import {useRouter} from 'vue-router';
-    // import {createStory} from '../services/api';
+    import {createStory} from '../services/api';
 
     export default {
         name: 'NewStoryView',
