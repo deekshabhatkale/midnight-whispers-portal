@@ -16,11 +16,10 @@ app.use(cors({
 }));
 app.use(express.json());  // For parsing JSON requests
 
-//Database Connection
-mongoose.connect(process.env.MONGODB_URI)
+// Database Connection
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
-
 
 // Routes
 app.use('/auth', authRoutes);
@@ -29,7 +28,7 @@ app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
     res.send('Story Site Backend API');
-  });
+});
 
 // Start server
 app.listen(port, () => {

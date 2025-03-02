@@ -1,83 +1,81 @@
 <template>
-    <div class="story-card" @click="navigateToStory">
-         <img :src="story.image" alt="Story Cover" class="cover-image"/>
-          <div class="card-content">
-              <h3 class="title">{{story.title}}</h3>
-              <p class="excerpt">{{ story.disc }}...</p>
-          </div>
+  <div class="story-card">
+    <img :src="story.cover" alt="Story Cover" class="story-image" />
+    <div class="story-details">
+      <h2>{{ story.title }}</h2>
+      <p>{{ story.content.substring(0, 100) }}...</p> <!-- Display an excerpt -->
+      <button @click="readStory">Read this story</button>
     </div>
-  </template> 
-  
-  <script>
-  import {useRouter} from 'vue-router';
-  export default {
-    name: 'StoryCard',
-    props: {
-      story: {
-        type: Object,
-        required: true
-      }
+  </div>
+</template>
+
+<script>
+import { useRouter } from 'vue-router';
+
+export default {
+  name: "StoryCard",
+  props: {
+    story: {
+      type: Object,
+      required: true,
     },
-    computed: {
-         storyExcerpt() {
-             const words = this.story.content.split(' ');
-             return words.slice(0, 100).join(' ');
-         }
-    },
-      setup(props) {
-           const router = useRouter();
-           const navigateToStory = () => {
-             router.push(`/story/${props.story._id}`)
-           };
-          return {
-              navigateToStory
-          };
-      }
-  }
-  </script>
-  <style scoped>
-  .story-card {
-      border: 1px solid black;
-      border-radius: 8px;
-      padding: 25px;
-      margin-bottom: 20px;
-      background-color: black;
-      display: flex;
-      cursor: pointer;
-      align-items: flex-start; /* Align items to the start */
-  }
-  
-  .cover-image {
-    width: 100px;
-    height: 133px; /* Maintaining a 3:4 aspect ratio */
-    object-fit: cover;
-    border-radius: 5px;
-    margin-right: 15px;
-  }
-  .card-content {
-     flex: 1;
-  }
-  .title {
-    font-size: 18px;
-      color: #ff4d4d; /* Red title */
-      text-align: center;
-  }
-  
-  .excerpt {
-    color: #ddd;
-  }
-  
-  .story-card:hover {
-    background-color: #444;
-  }
-  
-  @media (max-width: 768px) {
-    .story-card{
-        flex-direction: column;
-    }
-     .cover-image {
-      margin-right: 0;
-      margin-bottom: 10px;
-    }
-  }
-  </style>
+  },
+  setup(props) {
+    const router = useRouter();
+
+    const readStory = () => {
+      router.push(`/stories/${props.story._id}`);
+    };
+
+    return {
+      readStory,
+    };
+  },
+};
+</script>
+
+<style scoped>
+.story-card {
+  display: flex;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 20px;
+  background-color: black;
+  color: white;
+}
+
+.story-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.story-details {
+  flex: 1;
+}
+
+.story-details h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.story-details p {
+  margin: 10px 0 0;
+}
+
+.story-details button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.story-details button:hover {
+  background-color: #0056b3;
+}
+</style>

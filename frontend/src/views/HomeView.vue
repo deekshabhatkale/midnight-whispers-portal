@@ -1,9 +1,8 @@
 <template>
   <div class="home">
-
     <h1>Recent Stories</h1>
     <div class="story-list">
-      <StoryCard  class="story-card"  v-for="story in stories" :key="story._id" :story="story" />
+      <StoryCard class="story-card" v-for="story in stories" :key="story._id" :story="story" />
     </div>
   </div>
 </template>
@@ -19,51 +18,30 @@ export default {
     StoryCard,
     Sidebar,
   },
-  data() {
+  setup() {
+    const stories = ref([]);
+    const errorMessage = ref('');
+
+    const fetchStories = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/stories/api/stories');
+        if (!response.ok) {
+          throw new Error('Failed to fetch stories');
+        }
+        stories.value = await response.json();
+      } catch (error) {
+        console.error("Error fetching stories:", error);
+        errorMessage.value = 'Error fetching stories';
+      }
+    };
+
+    onMounted(fetchStories);
+
     return {
-"stories": [
-    {
-      "id": 1,
-      "title": "Title 1",
-      "disc": " I eat crows and I like it ",
-      "image": "./../frontend/src/images/1.jpg",
-      "Story ": "I killed my first crow when I was nine. I wish I could say it was an accident, but thatd be a lie.Id been watching it for about a week. It came to our yard around the same time each morning. It knew it was the same crow, because of the white blotch around one of its eyes, almost like some kind of birthmark. It would hop around, peck at the dirt for a bit, and then fly away. Im not sure why it kept to this routine; it wasnt like we were leaving food out for it or anything.One day, for whatever reason, I decided to pick up a stone and throw it at it. I missed, only succeeding in scaring the poor thing off. I didnt expect to see it again, but lo and behold, the next morning as I looked out the kitchen window, there it was, right on schedule. I ran out, got another rock, threw it at it, and off it flew, only to come back the following day. We kept this dance going pretty much throughout the whole of summer. In hindsight, I think I understand why I wanted to hurt it so badly. I was jealous. Unlike it, I couldnt just fly away whenever I wanted. I was stuck here, confined to the ground. Confined to this hellhole of a house. It was as if it knew that and came back every day just to taunt meInevitably, the stone did find its mark. I was just as surprised as the bird when I finally managed to hit it mid-takeoff, sending it back down to the ground. There it continued to thrash and flap around, but try as it might, it couldnt get airborne again. One of its wings didnt seem to be cooperating. After a while, it gave up and just sat there in the middle of the sunburnt grass, its chest puffing and deflating, its head swiveling in all directions.I grabbed the largest of the lawn ornaments scattered throughout the backyard, lifted it with both hands and slowly walked it over to my wounded quarry. The bird stayed put. It definitely saw me coming, but for whatever reason, didnt even try and move away.I raised the hefty porcelain rabbit halfway over my head and, using every ounce of force my skinny little arms could generate, brought its full weight back down on the helpless creature. Over and over. There was so much blood. I could feel its warmth on my hands and face as it sprayed after every impact. Only once I was done pulverizing the crow into a glistening mass of broken bones and feathers did I realize that it didnt make me feel any better. I was still just as angry, just as sad, only now there was a layer of guilt on top of it all.Suddenly, I heard my mom call me from inside the house, and my whole body froze. She shouted for me to go upstairs and get my stuff ready, since dad was coming to pick me up in an hour. I didnt even look back; I just responded with an uneven “…O-okay!”Guilt turned into panic. In hindsight, I couldve just put the ornament back where I found it, maybe wiped off the blood, and nobody wouldve been the wiser. My mom hardly ever went out into the backyard anymore, and even if she did, she probably wouldve assumed that a stray cat was responsible for the mess. But in my nine-year-old brain, that wasnt enough. My mind was cycling through progressively more hopeless scenarios. If mom found out, shed tell dad, and what if he stopped coming over? What if the neighbors kids saw it and blabbed to everyone at school? Theyd think I was an even bigger weirdo than they already did.The lump in my throat grew larger. My eyes fell back down to the bird, or what remained of it. Conflicting emotions wriggled like worms in my gut. Then, an unspeakable thought emerged:I could… eat itThe impulse was primal, almost instinctive, stemming from the same raw envy that led me to this gruesome act in the first place. But, in a twisted way, it did make sense. I mean, no one batted an eye when grandad used to take me fishing. Even though we caught and killed the fish, it was all good because we ate them afterward, right? Killing isnt bad when its done for food; animals do it all the time and we dont judge them for it. I reached out, fingers trembling, and turned the limp body over to reveal its sleek, ebony feathers matted in crimson. There was an almost metallic scent emanating from it as I picked it off the ground. I held my breath and bit into the still-warm flesh. Its sinewy textures resisted my teeth as blood gushed inside my mouth. The taste was foreign, tangy. It was neither pleasant nor unpleasant—it just was.Strips of stringy tissue clung stubbornly to the carcass. I had to chew through each one individually. Forcing the first piece down was tough. It slid down my throat like a thick, sluggish rope. With no choice but to continue, I tore off another piece, ligaments stretching, protesting as I yanked it away. Each chew echoed in my ears, a sickening squelch against the backdrop of chirping insects and rustling leaves—as if nature itself were holding its breath in disbelief. And it wasnt the only one.“Jacob! What the hell are you doing!?”I dropped my kill and snapped back to see my parents standing at the edge of the yard. Their faces were a mask of disbelief and revulsion as I stared at them, my mouth full of raw meat and feathers. A trail of hot blood dripped down my chin. Thats how it started.The next time I ate a crow, I was sixteen. I spotted it at a park and immediately knew it was the one. Its feathers were a deep, rich black, like charcoal, and its beak had an unusual shape, curving subtly inward at the tip. Whether as a result of some old injury or thats just how it grew, Im no bird expert, so I cant really say. All I knew was that it made my mouth water just looking at it.This time, my hunting method was a tad more refined. I lured the creature to the ground with some food, and while it was busy snacking, I ambushed it with the rim of my tennis racket. It took several hits to fully incapacitate it, and then I ended its suffering with a quick stomp to the head. I didnt want it to struggle; that was never the point. Im not some sicko sadist. I just needed it dead. If I had a more painless and effective way to do it, I wouldve gone for that.I looked around and, ensuring I had no audience, knelt beside the lifeless bird. The smell was unappetizing but also intoxicating—blood and earth—each whiff igniting something within me. I dont know what it was, but it felt right. As I sank my teeth into the stringy, warm flesh, the familiar metallic tang spilled across my tongue. The initial resistance of sinew gave way, and my incisors severed through muscle, stretching and snapping like a taut rubber band. I clamped down harder. My teeth started to ache as they hit bone. I tried to bite off its head, but it was both way too hard and way too messy, so I stuck to chewing through the soft middle part. Probably the worst part of the whole experience was the bits of intestines that kept getting stuck between my molars. When I was finished, I buried what was left and went home like nothing ever happened.Indulging my eccentric compulsion became a lot easier once I was old enough to legally purchase a firearm. I honestly dont know how I havent gotten sick yet. Ive tried cooking the meat, but it just isnt the same. I know what Im doing cant be healthy, but then again, we all have our vices. Some people smoke, others rely on alcohol to dull the pain of daily existence—I just happen to enjoy munching on raw crows from time to time. In the grand scheme of self-destructive habits, Id say mine is pretty manageable.Other than that one thing, Ive had a pretty normal life up until recently. I graduated, went to college, got a job, a wife, and a mortgage. We were even talking about trying for a kid once were a bit more financially stable. She obviously had no clue about my quirky little habits. Over the past few weeks, Ive been toying with the idea of telling her, but I guess its too late now.Yesterday, the boss let us off earlier than usual. Most of my coworkers headed out for drinks, but I was really looking forward to going home and surprising the wife; maybe take her out on a nice long drive across town like we used to do. But when I pulled up in our driveway, I immediately sensed something was wrong.All the lights were off. The front door was hanging open, swaying in the cold, December wind. Upon closer inspection, I realized that the lock was broken. Heart racing, I rushed inside. The darkness welcomed me back with indifference. I called out for my wife. The echo of her name hung in the still air, but only silence answered. My eyes darted around, searching for any signs of life, any movement whatsoever. Thats when I heard it—a grotesque cacophony of caws and wet gurgles. It led me deeper into the bowels of the house, where the light from a broken window spilled onto the floor. The dreadful scene it illuminated shattered my entire world. There, sprawled across our kitchen, among the jagged beams of steel and fragmented glass, was Rachel. Her head hung at an awkward angle, her lifeless eyes wide and glassy as they bored into me. Hunched over her was something Im having a hard time describing even now.Hairless and pink, its leathery skin extends over a body thats disturbingly humanoid yet incorrect. It has a torso, shoulders, and legs that seem only partially formed, reminiscent of an oversized, premature fetus. Instead of arms, it has a pair of stunted wings lacking feathers, and its skull is shaped like that of a crow, though disproportionately large for its scrawny frame. I just stood there, helpless and watching as it probed Rachels mangled remains with its beak. A part of me wanted to lash out at the thing; grab the nearest chair and beat it to a bloody pulp. But at the same time, I couldnt fully bring myself to hate it for what it had done. Its okay if you eat it after, right? The circle of life and all that. I may be a freak, perhaps not entirely right in the head, but Ill be damned if I add hypocrite onto that. Its still there in the kitchen, picking at my wifes dead body. Im waiting for it to finish. I have my 9mm on my lap and a hatchet ready. Ill update you guys on how it tastes.",
-      "author": "Draupadi"
-    },
-    {
-      "id": 2,
-      "title": "Title 2",
-      "disc": " The bright yellow terror ",
-      "image": "./frontend/src/images/2.jpg",
-      "Story ": "Initially, I had objected to the idea of him going at all. Naturally, my wife would hear none of that and I realized reluctantly, that my fear and trauma should not rule my so life. Instead, my wife would go, and I would always stay home. She understood, to some degree, what I had gone through and where my fear came from. Only to some degree. My son did not, and I sense he resented my absence on those perfect sunny days. Much to my despair, he turned out to be quite a little water enthusiast. I know for a fact that both he and my wife noticed how closed off I was about certain parts of my past.  Secrets untold, especially those that are grounded in trauma, almost inevitably turn toxic in our systems.I got myself stationed in a decent guesthouse around Khaosan Road. Everywhere I looked it seemed others had gotten the same idea as me. Backpackers crowded the streets and strangely, I felt at home amidst this quiet and peaceful chaos, amidst the crowds of hopefully like-minded explorers, far, far away from home. Khaosan Road was perfect for me. A meeting place for young backpackers, with tons of opportunities to plan further travels. I did, after all, not plan on staying in Bangkok for too long. It was just a stepping point to other adventures.t was still early. I was in the mood to socialize and with no real plans I simply ventured out into the streets of Bangkok, circling the area where my guesthouse was located. It was long before the first opportunity presented itself in the form of a taxi driver calling me over. He offered to take me on a tour of the city. Foolish and naive as I was, I indulged him. I remember how he lit up a doobie, joint, spliff,  whatever you want to call it. You know it as soon as you breathe it in. Do get me wrong, I partook myself from time to time, but letting a high person drive me around the busy Bangkok traffic did not seem like a good idea. I do remember feeling worried about what kind of person I had just so carelessly chosen to accompany. I was eventually led to a store, fitted for a suit I di want, and then subsequently charged an obscene amount for the cab ride. I diddare to refuse his unreasonable demand.Noteworthy mention. That same night I heard from a fellow traveler that just recently someone had been stabbed in an argument with a cab driver. I didlet it get me down or drive me off course because as yoprobably gathered by now, I didhave a course.As day turned to night and when the srays slowly disappeared behind the rooftops of Bangkok, the city itself began to started to emerge.I saw Neon lights advertising different bars, and locals making all kinds of promises of untold pleasures and sensations. I saw Tourists ready to party. All now filled the streets. Some seemed all too aware of what they were looking for, others simply drifted around aimlessly, in search of something unknown, something to spice up their existence. I found a small, seemingly cool place called The Hangover. I swear to God, I wish to this d Maybe then I woul have set my course for Phuket.In any case, I went in and pushed myself through the crowds of rowdy and loud tourists and up to the bar where I ordered a Pina Colada because why not? Standing at the crowded bar and looking around, hoping something interesting would catch my eye. But most of all, I was hoping someone would just take the first step and come talk to me.Someone did. His name was Robert, and he was from Australia. A tall skinny and no-nonsense older guy in his late forties who seemed quite experienced with all things Thailand. He eventually invited me down to his group of friends at the far back end of the bar. Robert spared no time telling me about himself. He had worked all kinds of jobs, in all kinds of places. Most recently he had worked as a guide in Phuket. Among other things, he had arranged rock climbing expeditions. I probably forgot to mention, I was big into rock climbing and generally all kinds of outdoor activities back then. I already had quite the climbing experience despite my young age. As Robert talked about all the places h been, he made me feel like the novice I was. That was never his intention though, as I quickly learned. He wasn a bragger. He just knew what he was talking about and when he laughed, he did it with his entire face and in a way that made you laugh with him and feel comfortable.Eventually, the conversation naturally gravitated towards Australia. A place I had always wanted to visit. He looked at me for a second, as if to contemplate something. Then he told me to watch out for locals trying to play pranks on me if I ever decided to go. I was naturally interested in hearing more and thats when he told me about drop-bears. Supposedly drop-bears are carnivorous versions of Koalas residing in trees that would then drop down on unsuspecting victims and viciously attack them. We laughed quite a lot, and I admitted I would probably have believed the stories as I was a fairly naive person and the idea of a hostile subspecies of koalas didnt seem that farfetched to me.Our conversation then shifted toward Australian wildlife and fauna and the horrors residing within its diverse and complicated ecosystem. He told me about a plant not uncommonly referred to as the suicide plant. It has such a nasty sting it made a man commit suicide simply to escape the pain. Another dangerous inhabitant was the box jellyfish he explained. Their sting is about as deadly as it gets. A single sting will cause necrosis of the skin, excruciating pain, and, if the dose of venom is large enough, cardiac arrest and death within minutes.I found the thought of the box jellyfish equal parts fascinating and equal parts frightening. Beautiful but deadly creatures. In fact, the ocean, in all its grand wide-reaching glory had always made me uncomfortable to some extent. So much unexplored space. Who truly knows what could be lurking down there? Robert quickly assured me that as long as you take your precaution the likelihood of getting stung by a box jellyfish was rather small.It was getting late and before we said our goodbyes Robert suggested I meet him in Phuket, more precisely in the Karon area on the 28th as that was the first day he would be able to meet. I agreed. He seemed genuinely nice and knowledgeable. Just good company all around and he promised to show me the greatest climbing spots a bit away from the crowded tours.",
-      "author": "Unknown"
-    }
-  ]
+      stories,
+      errorMessage,
     };
   },
-  // mounted() {
-  //   fetch("./../../stories.json")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       this.stories = data;
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching stories:", error);
-  //     });
-  // }
-//seperate stuff
-
-  // setup() {
-  //   const stories = ref([]);
-
-  //   onMounted(async () => {
-  //     stories.value = await fetchStories();
-  //   });
-
-  //   return {
-  //     stories,
-  //   };
-  // },
 };
 </script>
 
@@ -73,15 +51,5 @@ export default {
 }
 .story-list {
   margin-top: 20px;
-}
-.story-card {
-  border: 1px solid black;
-  border-radius: 8px;
-  padding: 25px;
-  margin-bottom: 20px;
-  background-color: black;
-  display: flex;
-  cursor: pointer;
-  align-items: flex-start; /* Align items to the start */
 }
 </style>

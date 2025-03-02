@@ -3,7 +3,7 @@ const router = express.Router();
 const Story = require('../models/story');
 
 // Get all stories, sorted by most recent.
-router.get('/', async (req, res) => {
+router.get('/api/stories', async (req, res) => {
     try {
         const stories = await Story.find().sort({ createdAt: -1 });
         res.json(stories);
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get a specific story by ID
-router.get('/:id', async (req, res) => {
+router.get('/api/stories/:id', async (req, res) => {
     try {
         const story = await Story.findById(req.params.id);
         if (!story) {
@@ -33,7 +33,6 @@ router.post('/api/stories', async (req, res) => {
         content: req.body.content,
         tags: req.body.tags,
     });
-    console.log(story);
     
     try {
         const newStory = await story.save();
@@ -43,16 +42,16 @@ router.post('/api/stories', async (req, res) => {
     }
 });
 
-// Update a story (you might want more robust validation/authorization for this)
-router.patch('/:id', async (req, res) => {
+// Update a story
+router.patch('/api/stories/:id', async (req, res) => {
     try {
         const story = await Story.findById(req.params.id);
         if (!story) {
             return res.status(404).json({ message: 'Story not found' });
         }
        
-         Object.assign(story, req.body);
-         story.updatedAt = Date.now();
+        Object.assign(story, req.body);
+        story.updatedAt = Date.now();
 
         const updatedStory = await story.save();
         res.json(updatedStory);
@@ -60,11 +59,12 @@ router.patch('/:id', async (req, res) => {
         res.status(400).json({ message: err.message });
     }
 });
-// Delete a story (add security measures here)
-router.delete('/:id', async (req, res) => {
+
+// Delete a story
+router.delete('/api/stories/:id', async (req, res) => {
   try {
-    const story = await Story.findByIdAndDelete(req.params.id)
-    if(!story) {
+    const story = await Story.findByIdAndDelete(req.params.id);
+    if (!story) {
       return res.status(404).json({ message: 'Story not found' });
     }
     res.status(200).json({ message: 'Story deleted' });
