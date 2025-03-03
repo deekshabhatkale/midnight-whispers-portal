@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000'; // Change to your back-end URL
+const API_URL = 'https://midnight-whispers-portal.onrender.com'; // Change to your back-end URL
 
 export const fetchStories = async () => {
     const response = await axios.get(`${API_URL}/stories/api/stories`);

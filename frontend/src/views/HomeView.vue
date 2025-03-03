@@ -24,7 +24,7 @@ export default {
 
     const fetchStories = async () => {
       try {
-        const response = await fetch('http://localhost:3000/stories/api/stories');
+        const response = await fetch('https://midnight-whispers-portal.onrender.com/stories/api/stories');
         if (!response.ok) {
           throw new Error('Failed to fetch stories');
         }
