@@ -1,7 +1,6 @@
 <template>
   <div class="sidebar">
     <button @click="home" class="nav-item-link">Home</button>
-    <button @click="profile" class="nav-item-link">Profile</button>
     <button @click="newStory" class="nav-item-link">Add Story</button>
     <button @click="logout" class="nav-item-link">Logout</button>
   </div>
