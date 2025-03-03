@@ -8,7 +8,7 @@ const port = 3000;
 
 // Middleware
 app.use(cors({
-    origin: 'https://midnight-whispers.onrender.com',
+    origin: 'http://localhost:5173', // Allow both local and Render URLs
     credentials: true,
 }));
 app.use(express.json());  // For parsing JSON requests
